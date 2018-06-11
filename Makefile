@@ -15,4 +15,12 @@ watch:
 clear:
 	rm -rf dist || true
 	rm -rf _posts || true
+
 deploy:  build
+	rm -rf /Users/jeanmachado/projects/jeancarlomachado.github.io/blog || true
+	rm -rf /Users/jeanmachado/projects/jeancarlomachado.github.io/index.html || true
+	cp -rf /Users/jeanmachado/projects/blog/dist/* /Users/jeanmachado/projects/jeancarlomachado.github.io
+	cd /Users/jeanmachado/projects/jeancarlomachado.github.io ; git add .
+	cd /Users/jeanmachado/projects/jeancarlomachado.github.io ; git commit -m 'automatic commit'
+	cd /Users/jeanmachado/projects/jeancarlomachado.github.io ; git push origin master
+
