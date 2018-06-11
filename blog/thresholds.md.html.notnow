@@ -1,0 +1,66 @@
+## Thresholds for the win
+
+Today I build a "envying" software solution by industry standards. It's
+the state of the art of what one might call a hexagonal architecture
+with the best patterns of OO and separation of concerns. In our new
+bright and shining micro service.
+
+A mindful questioner might ask: why you do all of this engineering? Well,
+we all want to write programs that are easy to maintain. Yet I do feel
+that this solution fails in this objective.
+
+Let's dive in some of the problems:
+ - Bannana Gorilla: Injecting dependencies with much more than the required API's 
+ - Stateful: state is spread all around
+ - Arbitrary boundaries and forced connectors: The classes separation are somewhat arbitrary and does not stimulate reuse, and even force us to build adapters from one API to another
+ - Time: Spent too much of the most precious asset of all
+
+
+And guess what, I'm sure that this piece of software will be harder to maintain
+than if done in a much less standardized way.
+
+It's much more rational to start a piece of software in a hacky way and refactor
+to something better.
+And by hacking I really mean not being too proactive to abstract things.
+It's not about writing deliberately bad code. You will still take care of code
+clarity but on the local level.
+
+One might ask, but how people will gonna understand such a big code?
+
+There's substantial evidence that readability is an local issue.
+It's not at the level of classes,modules, etc. But a line to line thing.
+It's better to keep things that are highly associated nearer than far away.
+
+Abstraction should follow experience, not precede it.
+Robert Martin
+
+Uses thresholds. They can be arbitrary, defined at the team's level.
+
+Trying to convey structure too early is also bad since we don't know where the
+software will evolve to.
+
+A visual approach would be great.
+Like building blocks. Maybe doing with OpenGL.
+
+The way it should be:
+
+First build a small block and then inflate them when it reaches a threshold.
+Then divide. With experience find patterns and further improve it.
+
+Now the way people do: 
+Start with a lot of building blocks
+Inflate them a little bit in each point.
+Patterns that the architecture never foresaw arise.
+Then you have a lot of blocks many that are too small.
+
+
+I have to stop focusing in PHP in my life. Now that we will migrate teams I hope
+to focus more on scala and python.
+And a lot that are too big as well.
+
+The proper unit of design should be one and just one thing. The function.
+
+
+Relatively simple things can tolerate a certain level of
+disorganization. However, as complexity increases, disorganization
+becomes suicidal.

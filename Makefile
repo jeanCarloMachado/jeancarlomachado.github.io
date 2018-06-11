@@ -16,5 +16,3 @@ clear:
 	rm -rf dist || true
 	rm -rf _posts || true
 deploy:  build
-	aws s3 cp dist/ s3://jeancarlomachado.site/ --recursive
-	aws cloudfront create-invalidation --distribution-id E1U7JVZD6QDSC6 --paths "/*"
