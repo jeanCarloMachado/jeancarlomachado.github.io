@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    
+    <meta name="keywords" content="personal view on php">
+    
+
+    
+        <title>My view on PHP</title>
+    
+
+    <meta name="description" content="Personal blog">
+
+    <link rel="icon" href="/assets/img/favicon.ico">
+
+  <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-49232964-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-49232964-2');
+</script>
+
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="post">
+    <a class="post__back" href="/">&lt;-- home</a>
+    <h1 class="post__title">My view on PHP</h1>
+    <p class="post__date">September 2, 2018</p>
+    <p class="post__meta"></p>
+    <div class="post__content"?>
+        <p>I have a strange relationship with PHP. One might even be tempted to say contradictory.</p>
+
+<p>For one I feel gratitude towards it. After all most of my career up to this point is using it. So much that I become very good at it and a recognizable community member.</p>
+
+<p>To avoid some ad hominem attacks (and to brag a bit) some credentials: I’ve been developing PHP for about 6 to 7 years as my main language. I contributed to PHP core. Sent patches for fixing not coherent behavior in some functions, also some tests and doc improvements. I contribute to many of the most important open-source projects in PHP: Doctrine, Phpunit and Zend Framework to mention some. I’ve been speaking at many PHP conferences for some time with topics regarding clean code, functional programming, architecture, etc. I met personally most of the more famous community figures including Rasmus.</p>
+
+<p>But also, I’ve spent a lot of time studying about programming languages in general and trying different one’s which led me to the inescapable conclusion that PHP is a bad choice for writing software.</p>
+
+<p>So this post is to try to explain this view since many times people ask me how can I be competent at it and still dislike it.</p>
+
+<h2 id="the-good">The good</h2>
+
+<p>First of all let’s go through the virtues of the language.</p>
+
+<p>PHP has an incredible community. Being a Brazilian programmer I can attest that the PHP community there is amazing. I got to know a lot of friendly very smart people in my days of PHP there.</p>
+
+<p>By having a vibrant community you might find a lot of packages, solving many problems that you might be interested on. Integration with other technologies is also fairly complete.</p>
+
+<p>Also PHP is very good for quick prototypes and move fast and break things mentality.</p>
+
+<p>PHP also allows you to write good software.</p>
+
+<h2 id="the-bad">The bad</h2>
+
+<p>This list is by no means exhaustive, but I consider this problems  very basic and too hard to solve at this later stage of PHP.</p>
+
+<p>I agree with Paul Graham that good languages are made by hackers, as
+opposed by committees. Tough PHP got too far on that direction. PHP is
+poorly designed.</p>
+
+<p>The native functions don’t respect nomenclature eg: array_filter/array_map arguments order. You have always to keep an eye when your date functions return values or references. Error checking is always a surprise, sometimes you expect an exception and got an error, other times the other way around.</p>
+
+<p>Good languages allows you to have many serendipity moments. I’m not here to defend any language (on the contrary). But by knowing a subset of Ruby functions I can infer many others that I suspect that exist and guess what? Most of the times I’m right, and they work out of the box. This hardly happen in PHP.</p>
+
+<p>The type-system is a joke. Type-system science is pretty advanced by now and all languages would benefit to use more of it. Union types comes top in mind.</p>
+
+<p>PHP clearly started with high influences from C (which is awesome), but in 5.* forward you can see influences mainly from Java (which is horrible). And concepts that only make sense in a statically-checked language were imported without too much thought. The concept of interface bears hardly any advantage in matters of consistency checking since the interpreter only show you the errors at execution time. In Java, on the other hand, they can be checked at compile time helping the developer to find the errors much early in the development cycle.</p>
+
+<p>One can argue that interfaces have some utility in improving runtime error messages by making them more semantical and by allowing contract design  with third parties, something that PSR’s are doing very well. But this is not the primary use-case for most developers. They think that they are making they code less error prone and more modern by adding interfaces, but in  truth they are most of the time adding leaky verbose abstractions, paying a huge price in readability. Yes, one should design by interfaces but duck typing those interfaces are more then enough, indeed is ideal.</p>
+
+<p>At last, a reasonably good model infer language quality is the quantity of reserved words it has. Obviously the more the worse. For one, there’s the cognitive load of having to memorize them. Also the cost of onboarding on the language. But deeper than that, if you have aver well thought foundation you can rely on the abstractions you built to add new behaviour. This list represent well what I think about the languages below:</p>
+
+<ul>
+  <li>C++ ~=90 reserved words</li>
+  <li>PHP ~= 74</li>
+  <li>Python ~= 33</li>
+</ul>
+
+<hr />
+
+<p>PHP has some great aspects. I could mention many worse languages than it: Fortran for one. But I argue that the great things about PHP is present in many other languages and at the same those other don’t have this basic failures.</p>
+
+<p>One very clear case to me is Python. Sure, Python is not perfect - I would love to see static checking and type inference there, for one. But by not having these basic flaws and having at least the same good aspects it IS better than PHP.</p>
+
+<p>The only one choice that should be hard to change in a well designed system is the programming language. So we should know better before committing to one. All these small things build up momentum and, when comparing with other languages, the life of the developer can be miserable. One can reduce this pain by relying part of the languages job to a text editor. I personally don’t accept that solution. Seems like going deeper in the problem, committing with something that is in-principle not good.</p>
+
+<p>One of the great arguments of web programming back on the day was that you could do the backend in the best way possible, not being binded by the operational system language. There are so many cool options out there, wanna some suggestions? Try: python, go, c,  ruby, swift, rust, elm, clojure, scala, haskell, f#. After getting some test of what is possible you will be able to see that we are far form the top in terms of language. Good developers worth the title have to get out of their tribes and explore more for us to get out of this local-optima.</p>
+
+<p>Obs: all here said can be said about Javascript as well, with the obvious exception that it has a monopoly over the browser (for now).  Still if you look hard enough there are better alternatives I recommend Elm.</p>
+
+    </div>
+
+</div>
+
+<div id="disqus_thread"></div>
+<script>
+    var identifier = window.location.href.split('/');
+    identifier = identifier[identifier.length -1 ];
+    identifier.split('.')[0];
+
+    var disqus_config = function () {
+        this.page.url = window.location.href;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = identifier;
+    };
+    (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+        var d = document, s = d.createElement('script');
+
+        s.src = '//jeancarlomachado.disqus.com/embed.js';  // IMPORTANT: Replace EXAMPLE with your forum shortname!
+
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
+  MathJax.Hub.Insert(MathJax.InputJax.TeX.Definitions.macros,{
+      cancel: ["Extension","cancel"],
+          bcancel: ["Extension","cancel"],
+              xcancel: ["Extension","cancel"],
+                  cancelto: ["Extension","cancel"]
+                    });
+                    });
+</script>
+
+<link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+    </div>
+</body>
+
+</html>
