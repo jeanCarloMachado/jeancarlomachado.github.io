@@ -51,8 +51,8 @@ quesito composição.</p>
 
 <p>Considere o problema de buscar o perfil de um usuário no banco de dados.
 A opinião “mainstream” do que é considerado boas práticas é bem representado
-pelo código abaixo (com sérias simplificacões). Preciso pegar o perfil de um
-usuario. Crio uma classe que recebe o banco (ou alguma abstração do banco) e
+pelo código abaixo (com sérias simplificações). Preciso pegar o perfil de um
+usuário. Crio uma classe que recebe o banco (ou alguma abstração do banco) e
 efetuo a busca.</p>
 
 <div class="language-php highlighter-rouge"><pre class="highlight"><code>class Profile {
@@ -100,8 +100,8 @@ seria algo nessa linha:</p>
 </code></pre>
 </div>
 
-<p>Qual o problema dessa solução? Bom, primeiramente uma solução assim vai requerir
-bastente mocks pra testar. Sou forte defensor da heurística <strong>o que torna se
+<p>Qual o problema dessa solução? Bom, primeiramente uma solução assim vai requerer
+bastante mocks pra testar. Sou forte defensor da heurística <strong>o que torna se
 código difícil de testar está errado</strong>. Mas tem algo mais fundamental aí que é o
 assunto desse post. O que é a operação de pegar o perfil quando pensamos
 <em>intuitivamente</em>? Envolve cache? Não. O código construído dessa maneira “empilha”
@@ -288,9 +288,8 @@ reduzir com aplicação parcial:</p>
 </code></pre>
 </div>
 
-<p>Feito. Temos um logger.</p>
-
-<p><strong>3 - Junte as funções com composição horizontal</strong></p>
+<p>Feito. Temos um logger.
+<strong>3 - Junte as funções com composição horizontal</strong></p>
 
 <div class="language-php highlighter-rouge"><pre class="highlight"><code>$serviceLogger = (callable $logger, $serviceName, callable $service) {
     return function ($args) use ($logger, $service, $serviceName) {
