@@ -55,48 +55,42 @@
 
 <h3 id="desabilitando">Desabilitando</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>setxkbmap -option caps:none
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>setxkbmap -option caps:none
+</code></pre></div></div>
 
 <h3 id="trocando-layouts">Trocando <em>layouts</em></h3>
 <p>Até então, eu vinha trocando os <em>layouts</em> <code class="highlighter-rouge">pt,en</code> de meus teclados utilizando o <code class="highlighter-rouge">alt+shift</code>, visto que o <em>Capslock</em> ficou livre de suas responsabilidades, resolvi utilizá-lo para trocar de <em>layout</em>.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>setxkbmap -layout 'us,br' -option 'grp:caps_toggle,grp_led:caps'
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>setxkbmap -layout 'us,br' -option 'grp:caps_toggle,grp_led:caps'
+</code></pre></div></div>
 
 <p>Para trocar com o <code class="highlighter-rouge">alt+shift</code> (modo antigo):</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>setxkbmap -option grp:switch,grp:alt_shift_toggle,grp_led:scroll us,br
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>setxkbmap -option grp:switch,grp:alt_shift_toggle,grp_led:scroll us,br
+</code></pre></div></div>
 
 <h2 id="reiniciando-o-x">Reiniciando o X</h2>
 
 <p>Até então eu vinha sentindo falta do comando tradicional para reiniciar a sessão</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>setxkbmap -option terminate:ctrl_alt_bksp
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>setxkbmap -option terminate:ctrl_alt_bksp
+</code></pre></div></div>
 
 <h2 id="colando-no-terminal">Colando no terminal</h2>
 
 <p>O comando para colar no terminal é <code class="highlighter-rouge">shift+insert</code>, só que no teclado no macbook <code class="highlighter-rouge">insert</code> não existe. Abaixo segue uma solução de mapeamento do <code class="highlighter-rouge">insert</code> no lugar do <code class="highlighter-rouge">command</code> da direita. Dessa forma é possível colar no terminal utilizando as teclas <code class="highlighter-rouge">shift</code> da esquerda mais <code class="highlighter-rouge">command</code> da direita.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>xmodmap -e "keycode 134 = Insert NoSymbol Insert"
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xmodmap -e "keycode 134 = Insert NoSymbol Insert"
+</code></pre></div></div>
 
 <p>Em teoria o <code class="highlighter-rouge">xmodmap</code> funciona se colar o comando no <code class="highlighter-rouge">~/.xinitrc</code> - só que não no meu caso.</p>
 
 <p>A melhor alternativa que encontrei para persistir este comando foi colocando-o da seguinte forma no meu <code class="highlighter-rouge">~/.bashrc</code></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>if [ -n "$DESKTOP_SESSION" ]; then
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if [ -n "$DESKTOP_SESSION" ]; then
     /usr/bin/xmodmap -e "keycode 134 = Insert NoSymbol Insert"
 fi
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Espero que estas dicas lhe sejam úteis. Caso tenha alguma dica de como otimizar o teclado - por favor, deixe-me saber.</p>
 

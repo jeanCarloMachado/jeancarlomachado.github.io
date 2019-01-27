@@ -70,15 +70,14 @@ os plugins do zend Framework constam:</p>
 <p>Para utilizar algum plugin em um controlador basta chamá-lo em uma das
 seguintes formas:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$plugin = $this-&gt;plugin('identity');
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$plugin = $this-&gt;plugin('identity');
 //ou
 $plugin = $this-&gt;identity();
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>Esta forma de trabalhar é interessante pois ajuda a desacoplar código;
 já vi muito código de mentores da comunidade com coisas do tipo:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>class Budget
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Budget
 {
 ...
     public function getIdentity($params)
@@ -87,8 +86,7 @@ já vi muito código de mentores da comunidade com coisas do tipo:</p>
     }
 ...
 }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Essa forma de trabalhar está longe de condizer com os padrões
 <a href="https://en.wikipedia.org/wiki/SOLID_%28object-oriented_design%29">SOLID</a>.</p>
@@ -132,7 +130,7 @@ questão de trade-off’s.</p>
 
 <h4 id="o-caminho-da-herança---serviceabstract-como-gerenciador-de-plugins">O caminho da herança - ServiceAbstract como Gerenciador de Plugins</h4>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
 
 <span class="k">namespace</span> <span class="nx">Core\Service</span><span class="p">;</span>
 
@@ -190,8 +188,7 @@ questão de trade-off’s.</p>
         <span class="k">return</span> <span class="nv">$plugin</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>AbstractPluginManager define um método abstrato o: <code class="highlighter-rouge">validatePlugin</code>
 que deve ser implementado por seus filhos, neste caso validei
@@ -209,19 +206,17 @@ suas classes)</li>
 
 <p>Para criar um invokable:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>	protected $aliases = [
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	protected $aliases = [
 		'identity' =&gt; '\Core\Service\Plugin\Identity'
 	];
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Para criar um alias:</p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code>	protected $aliases = [
-		'identity' =&gt; 'useridentity'
-	];
-</code></pre>
-</div>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="k">protected</span> <span class="nv">$aliases</span> <span class="o">=</span> <span class="p">[</span>
+		<span class="s1">'identity'</span> <span class="o">=&gt;</span> <span class="s1">'useridentity'</span>
+	<span class="p">];</span>
+</code></pre></div></div>
 
 <p>(A partir de então <code class="highlighter-rouge">$this-&gt;identity()</code> e  <code class="highlighter-rouge">$this-&gt;useridentity()</code> fazem a mesma coisa )</p>
 
@@ -232,7 +227,7 @@ de então <code class="highlighter-rouge">$this-&gt;identity()</code> tem o mesm
 
 <h4 id="uma-interface-para-os-plugins">Uma interface para os plugins</h4>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
 
 <span class="k">namespace</span> <span class="nx">Core\Service\Plugin</span><span class="p">;</span>
 
@@ -246,8 +241,7 @@ de então <code class="highlighter-rouge">$this-&gt;identity()</code> tem o mesm
 <span class="k">interface</span> <span class="nx">PluginInterface</span>
 <span class="p">{</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Mesmo deixando a interface vazia é bom depender em abstrações, sendo assim a mantive.</p>
 
@@ -260,7 +254,7 @@ não ser verdadeiro.</p>
 
 <h4 id="plugin-identity">Plugin Identity</h4>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
 
 <span class="k">namespace</span> <span class="nx">Core\Service\Plugin</span><span class="p">;</span>
 
@@ -297,14 +291,13 @@ não ser verdadeiro.</p>
         <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>OBS: Utilizo o método mágico <code class="highlighter-rouge">__invoke</code> para executar a
 funcionalidade do plugin sem precisar utilizar métodos.</p>
 
 <h4 id="factory-identity">Factory Identity</h4>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
 
 <span class="k">namespace</span> <span class="nx">Core\Service\Plugin</span><span class="p">;</span>
 
@@ -334,8 +327,7 @@ funcionalidade do plugin sem precisar utilizar métodos.</p>
         <span class="k">return</span> <span class="nv">$helper</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>O importante aqui é implementar o <code class="highlighter-rouge">FactoryInterface</code>, a partir de
 então o <code class="highlighter-rouge">AbstractPluginManager</code> se responsabiliza por injetar uma
 instância de ServiceManager na chamada <code class="highlighter-rouge">createService</code> que pode ser
@@ -343,7 +335,7 @@ utilizado para incluir as dependências necessárias no plugin.</p>
 
 <h3 id="plugin-cache">Plugin Cache</h3>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
 
 <span class="k">namespace</span> <span class="nx">Core\Service\Plugin</span><span class="p">;</span>
 
@@ -381,8 +373,7 @@ utilizado para incluir as dependências necessárias no plugin.</p>
     <span class="p">}</span>
 <span class="p">}</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>No <code class="highlighter-rouge">_invoke</code> do plugin do cache retornei a própria instância de
 Cache, para facitilitar, visto que normalmente diversas operações

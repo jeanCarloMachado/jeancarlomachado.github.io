@@ -111,16 +111,14 @@ Cliente, <em>WikiPage</em>, <em>Conta</em> e <em>AdressParser</em>. Evite nomes 
 <p>Quando construtores são sobre escritos utilize <em>Factories abstratas</em> com métodos
 que descrevem os argumentos. Por exemplo,</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    Complex.fulcrumPoint = Complex.FromRealNumber(23.0);
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Complex.fulcrumPoint = Complex.FromRealNumber(23.0);
+</code></pre></div></div>
 
 <p>é geralmente melhor do que</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    Complex fulcrumPoint = new Complex(23.0);
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Complex fulcrumPoint = new Complex(23.0);
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <hr />
 
@@ -167,7 +165,7 @@ confusão e desorganização.</p>
 como as abaixo. Este <em>dockblock</em> simplesmente não incrementa em nada a leitura,
 serve apenas para ofuscar o código e criar mentiras em potencial.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>/**
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/**
  *
  * @param $title The title of the CD
  * @param $author The author of the CD
@@ -183,8 +181,7 @@ serve apenas para ofuscar o código e criar mentiras em potencial.</p>
     $cd-&gt;tracks = $tracks;
     $cd-&gt;duration = $durationInMinutes;
  }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <hr />
 

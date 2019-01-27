@@ -50,7 +50,7 @@ so you don’t have to worry to much it’s simply working.</p>
 
 <p>To start it one can use the following:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>imageid=$(docker images \ 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>imageid=$(docker images \ 
 | grep graphite_statsd \ 
 | cut -d " " -f18)
 docker run
@@ -64,14 +64,12 @@ service postgresql start   \
     /usr/bin/nodejs \ 
     /usr/share/statsd/stats.js \
     /etc/statsd/localConfig.js"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>And to agregate data the following</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>echo  "gandalf:222|3" | nc -u -w0 127.0.0.1 6667
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo  "gandalf:222|3" | nc -u -w0 127.0.0.1 6667
+</code></pre></div></div>
 
 <p>That’s it, maybe on the future I’ll write about some settings one
 may do on statsd to get better precision on graphite.</p>

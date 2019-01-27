@@ -57,7 +57,7 @@ PHP file in the current commit.</p>
 <p>The hook is located at <code class="highlighter-rouge">.git/hooks/pre-commit</code>. Is like the
 following:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>PHP_STAGED_FILES_CMD=`git diff --cached --name-only --diff-filter=ACMR HEAD | grep \\\\.php`
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PHP_STAGED_FILES_CMD=`git diff --cached --name-only --diff-filter=ACMR HEAD | grep \\\\.php`
 SFILES=${SFILES:-$PHP_STAGED_FILES_CMD}
 for FILE in $SFILES; do
     echo "Cheking file $FILE"
@@ -70,8 +70,7 @@ for FILE in $SFILES; do
     fi
 done
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>The important part here is the command responsible for style
 checking <code class="highlighter-rouge">cpf-code-check</code>, and when it returns failure the hole
@@ -81,14 +80,14 @@ command fails.</p>
 
 <p>The following is the definition of the checker.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c">#!/usr/bin/env bash</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/usr/bin/env bash</span>
 <span class="c">#cpf-code-check</span>
 
-<span class="nv">excludePatterns</span><span class="o">=</span><span class="sb">`</span>cat <span class="nv">$CLIPP_PATH</span>/Backend/styleignore<span class="sb">`</span>
+<span class="nv">excludePatterns</span><span class="o">=</span><span class="sb">`</span><span class="nb">cat</span> <span class="nv">$CLIPP_PATH</span>/Backend/styleignore<span class="sb">`</span>
 
-<span class="k">for </span>i <span class="k">in</span> <span class="nv">$excludePatterns</span>; <span class="k">do</span>
+<span class="k">for </span>i <span class="k">in</span> <span class="nv">$excludePatterns</span><span class="p">;</span> <span class="k">do</span>
     <span class="o">[[</span> <span class="nv">$@</span> <span class="o">=</span>~ <span class="nv">$i</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="o">{</span>
-        <span class="nb">echo</span> -e <span class="s2">"</span><span class="se">\e</span><span class="s2">[5m</span><span class="se">\e</span><span class="s2">[31mIgnored pattern </span><span class="nv">$i</span><span class="se">\e</span><span class="s2">[0m"</span>
+        <span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">[5m</span><span class="se">\e</span><span class="s2">[31mIgnored pattern </span><span class="nv">$i</span><span class="se">\e</span><span class="s2">[0m"</span>
         <span class="nb">exit </span>0
     <span class="o">}</span>
 <span class="k">done
@@ -97,23 +96,23 @@ command fails.</p>
 
 <span class="nb">echo</span> <span class="s2">"Running phpcs"</span>
 
-<span class="nv">$CLIPP_PATH</span>/Backend/vendor/bin/phpcs  --standard<span class="o">=</span><span class="nv">$CLIPP_PATH</span>/Backend/ruleset.xml <span class="nv">$@</span>
+<span class="nv">$CLIPP_PATH</span>/Backend/vendor/bin/phpcs  <span class="nt">--standard</span><span class="o">=</span><span class="nv">$CLIPP_PATH</span>/Backend/ruleset.xml <span class="nv">$@</span>
 <span class="nv">csResult</span><span class="o">=</span><span class="nv">$?</span>
 <span class="nb">echo</span> <span class="s2">"CS Result: </span><span class="nv">$csResult</span><span class="s2">"</span>
 
-<span class="o">[[</span> <span class="nv">$csResult</span> !<span class="o">=</span> 0 <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="o">{</span>
+<span class="o">[[</span> <span class="nv">$csResult</span> <span class="o">!=</span> 0 <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="o">{</span>
     <span class="nv">hasError</span><span class="o">=</span>1
 <span class="o">}</span>
 
 <span class="nb">echo</span> <span class="s2">"-------"</span>
 <span class="nb">echo</span> <span class="s2">"Running php-md"</span>
 
-<span class="nv">$CLIPP_PATH</span>/Backend/vendor/bin/phpmd  --minimumpriority 4 <span class="nv">$@</span>  text <span class="nv">$CLIPP_PATH</span>/Backend/phpmd.xml
+<span class="nv">$CLIPP_PATH</span>/Backend/vendor/bin/phpmd  <span class="nt">--minimumpriority</span> 4 <span class="nv">$@</span>  text <span class="nv">$CLIPP_PATH</span>/Backend/phpmd.xml
 
 <span class="nv">mdResult</span><span class="o">=</span><span class="nv">$?</span>
 <span class="nb">echo</span> <span class="s2">"MD Result: </span><span class="nv">$mdResult</span><span class="s2">"</span>
 
-<span class="o">[[</span> <span class="nv">$mdResult</span> !<span class="o">=</span> 0 <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="o">{</span>
+<span class="o">[[</span> <span class="nv">$mdResult</span> <span class="o">!=</span> 0 <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="o">{</span>
     <span class="nv">hasError</span><span class="o">=</span>1
 <span class="o">}</span>
 
@@ -122,26 +121,24 @@ command fails.</p>
 
 <span class="nb">exit</span> <span class="nv">$hasError</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>We can ignore files with the <code class="highlighter-rouge">styleignore</code> file. This is useful for
 some new syntax that appears in PHP like anonymous classes, that are
 detected as errors by the checkers so are disabled for now.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Core.?Validator.?IsFloat.php
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Core.?Validator.?IsFloat.php
 .*DataFacadeTest.*.php
 Backend/module/Fiscal/tests/src/FiscalTest/Service/NFE/NFETest.php
 NFE.+ConsumerTest
 Backend/module/Application/src/Application/Service/.*.php
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>And the last part is our custom configurations of phpmd and phpcs.</p>
 
 <h2 id="rulesetxml">ruleset.xml</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
 <span class="nt">&lt;ruleset</span> <span class="na">name=</span><span class="s">"Compufacil"</span><span class="nt">&gt;</span>
  <span class="nt">&lt;exclude-pattern&gt;</span>*.config.php<span class="nt">&lt;/exclude-pattern&gt;</span>
  <span class="nt">&lt;exclude-pattern&gt;</span>Bootstrap.php<span class="nt">&lt;/exclude-pattern&gt;</span>
@@ -159,12 +156,11 @@ Backend/module/Application/src/Application/Service/.*.php
   <span class="nt">&lt;/properties&gt;</span>
  <span class="nt">&lt;/rule&gt;</span>
 <span class="nt">&lt;/ruleset&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="phpmdxml">phpmd.xml</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0"?&gt;</span>
 <span class="nt">&lt;ruleset</span> <span class="na">xmlns=</span><span class="s">"http://pmd.sf.net/ruleset/1.0.0"</span>
          <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
          <span class="na">xsi:schemaLocation=</span><span class="s">"http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"</span>
@@ -217,8 +213,7 @@ Backend/module/Application/src/Application/Service/.*.php
         <span class="nt">&lt;priority&gt;</span>5<span class="nt">&lt;/priority&gt;</span>
     <span class="nt">&lt;/rule&gt;</span>
 <span class="nt">&lt;/ruleset&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Those configurations are very specific for our case but it’s works
 well as an skeleton for other projects.</p>

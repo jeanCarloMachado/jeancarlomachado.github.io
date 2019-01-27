@@ -75,7 +75,7 @@ todo o processamento prévio a view e A view do Zend 2 consiste em
 estratégias que mapeaiam as requisições para um renderizador e
 estratégias para injetar o resultado de uma renderização na resposta.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$renderer = new \Zend\View\Renderer\PhpRenderer();
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$renderer = new \Zend\View\Renderer\PhpRenderer();
 
 $translate = new \Zend\I18n\View\Helper\Translate();
 $translate-&gt;setTranslator( (new
@@ -101,8 +101,7 @@ $map = new \Zend\View\Resolver\TemplateMapResolver([
 $resolver-&gt;attach($stack);
 
 return $renderer;
-</code></pre>
-</div>
+</code></pre></div></div>
 
     </div>
 

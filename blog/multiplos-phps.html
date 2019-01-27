@@ -106,7 +106,7 @@ dizer: 5.5.12.</p>
 <p>Configure as opções e extensões que deseja nesta instalação - minhas
 opções padrões são da forma que segue:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>./configure --prefix=/opt/php-5.5.12 --with-pdo-pgsql --with-zlib-dir
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./configure --prefix=/opt/php-5.5.12 --with-pdo-pgsql --with-zlib-dir
 --with-freetype-dir --enable-mbstring --with-libxml-dir=/usr
 --enable-soap --enable-calendar --with-curl --with-mcrypt --with-zlib
 --with-gd --with-pgsql --disable-rpath --enable-inline-optimization
@@ -117,8 +117,7 @@ opções padrões são da forma que segue:</p>
 --enable-gd-native-ttf --with-openssl --with-fpm-user=nginx
 --with-fpm-group=nginx --with-libdir=lib64 --enable-ftp --with-imap
 --with-imap-ssl --with-kerberos --with-gettext --enable-cgi
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Algumas coisas devem ser levadas em consideração neste ponto:</p>
 
@@ -177,13 +176,12 @@ http://dl.fedoraproject.org/pub/epel/5/i386/epel-release-5-4.noarch.rpm</code>
 <p>Adicione o repositório de nginx em
  <code class="highlighter-rouge">/etc/yum.repos.d/nginx.repo</code></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code> *[nginx\]*\
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> *[nginx\]*\
  *name=nginx repo*
  *baseurl=http://nginx.org/packages/centos/$releasever/\$basearch/*\
  *gpgcheck=0*
  *enabled=1*
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Para verificar as versões disponíveis do NGINX digite:
  <code class="highlighter-rouge">yum --enablerepo=remi list nginx</code></p>
@@ -208,12 +206,11 @@ do comando:</p>
 <p>Adicione a cláusula se desejares reescrever as configurações de log em
 suas virtualhosts:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code> http {
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> http {
  # Debug rewrite rules\
  rewrite_log on;\
  }
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>Elimine a configuração default de servidor do nginx:</p>
 
 <p><code class="highlighter-rouge">rm /etc/nginx/conf.d/default.conf</code></p>
@@ -221,7 +218,7 @@ suas virtualhosts:</p>
 <p>Adicione a virtualhost de seu php (e mais qualquer uma que deseje
 criar) no arquivo <code class="highlighter-rouge">/etc/nginx/conf.d/virtual.conf</code></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code> *server {*
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> *server {*
 *     server_name 127.0.0.1;*\
  *     listen 5512;*
  *     root ~/tests/php/5.5.12;*\
@@ -257,8 +254,7 @@ ser a mesma do script de inicialização do nginx*
  *          fastcgi_pass 127.0.0.1:9000;*\
  *     }*
  *}*
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>A fim de que consigamos trabalhar com múltiplas versões do php
 necessitamos alterar o script de inicialização do daemon e forçá-lo a
@@ -266,7 +262,7 @@ ouvir portas específicas para cada versão do PHP que desejarmos. No
 arquivo <em>/etc/init.d/nginx</em> procure pela função <em>start() {}</em>  e altere
 seu conteúdo para que fique equivalente a este:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code> *start() {*
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> *start() {*
 *     USER=nobody*
  *     PHP_55\_BIND=127.0.0.1:9000*\
  *     PHP_55\_CGI=/opt/php-5.5.11/bin/php-cgi*\
@@ -292,8 +288,7 @@ ${PHP\_55\_BIND}"*\
  *     [ \$retval -eq 0 \] &amp;&amp; touch \$lockfile*\
  *     return $retval*\
  *}*
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Neste caso forcei o NGINX a direcionar para o PHP 5.5.12 todas as
 chamadas na porta 9000, sendo assim, duplicando-se as configurações de
@@ -319,12 +314,11 @@ virtualhost para PHP 5.5.12).
  Para isso adicione as seguintes regras no seu /etc/sysconfig/iptables</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code> -A VZ_INPUT -p tcp -m tcp --dport 5512 -j ACCEPT\
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> -A VZ_INPUT -p tcp -m tcp --dport 5512 -j ACCEPT\
  -A VZ_INPUT -p tcp -m tcp --dport 9000 -j ACCEPT\
  -A VZ_OUTPUT -p tcp -m tcp --sport 9000 -j ACCEPT\
  -A VZ_OUTPUT -p tcp -m tcp --sport 5512 -j ACCEPT\
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Reinicie o serviço:
  <code class="highlighter-rouge">/etc/init.d/iptables restart</code></p>
@@ -335,18 +329,17 @@ virtualhost para PHP 5.5.12).
 
 <p>Vamos adicionar um php.info para testarmos a configuração</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>mkdir ~/tests/php/5.5.12
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir ~/tests/php/5.5.12
 touch ~/tests/php/5.5.12/index.php
 echo "&lt;?php phpinfo(); " &amp;gt; ~/tests/php/5.5.12/index.php
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="inicie-o-nginx">Inicie o NGINX:</h3>
 
 <p><code class="highlighter-rouge">/etc/init.d/nginx start</code></p>
 
 <p>Agora teste através de seu navegador o endereço: 
-<code class="highlighter-rouge"><span class="p">{</span><span class="err">Meu</span><span class="w"> </span><span class="err">IP</span><span class="p">}</span><span class="err">:</span><span class="mi">5512</span></code>
+<code class="highlighter-rouge">{Meu IP}:5512</code>
  </p>
 
 <p>Como já mencionado, o nginx não utiliza .htaccess  - a configuração

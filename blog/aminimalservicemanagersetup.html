@@ -46,46 +46,44 @@
         <p>For some time now I’ve been using this pattern to interact with
 some services on Compufácil.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code># !/usr/bin/env php
-&lt;?php
-//file: cpf-service_manager.php
-use Zend\ServiceManager\ServiceManager;
-use Zend\Mvc\Service\ServiceManagerConfig;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># !/usr/bin/env php
+<span class="cp">&lt;?php</span>
+<span class="c1">//file: cpf-service_manager.php</span>
+<span class="k">use</span> <span class="nx">Zend\ServiceManager\ServiceManager</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Zend\Mvc\Service\ServiceManagerConfig</span><span class="p">;</span>
 
-require __DIR__.'/../Backend/vendor/autoload.php';
-$applicationConfig = require __DIR__.'/../Backend/config/application.config.php';
-$serviceManager = new ServiceManager(new ServiceManagerConfig());
-$serviceManager-&gt;setService('ApplicationConfig', $applicationConfig);
-$serviceManager-&gt;get('ModuleManager')-&gt;loadModules();
+<span class="k">require</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">'/../Backend/vendor/autoload.php'</span><span class="p">;</span>
+<span class="nv">$applicationConfig</span> <span class="o">=</span> <span class="k">require</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">'/../Backend/config/application.config.php'</span><span class="p">;</span>
+<span class="nv">$serviceManager</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ServiceManager</span><span class="p">(</span><span class="k">new</span> <span class="nx">ServiceManagerConfig</span><span class="p">());</span>
+<span class="nv">$serviceManager</span><span class="o">-&gt;</span><span class="na">setService</span><span class="p">(</span><span class="s1">'ApplicationConfig'</span><span class="p">,</span> <span class="nv">$applicationConfig</span><span class="p">);</span>
+<span class="nv">$serviceManager</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">'ModuleManager'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">loadModules</span><span class="p">();</span>
 
-return $serviceManager;
-</code></pre>
-</div>
+<span class="k">return</span> <span class="nv">$serviceManager</span><span class="p">;</span>
+</code></pre></div></div>
 
 <p>With it in hands I can simply create a file like this.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code># !/usr/bin/env php
-&lt;?php
-//file: cpf-client-remove
-use Core\Service\ParameterFactory;
-use Application\Service\Client\Client as ClientService;
-$identifier = $argv[1];
-$serviceManager = require_once __DIR__.'/cpf-service_manager.php';
-$clientService = $serviceManager-&gt;get('Application\Service\Client\Client');
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># !/usr/bin/env php
+<span class="cp">&lt;?php</span>
+<span class="c1">//file: cpf-client-remove</span>
+<span class="k">use</span> <span class="nx">Core\Service\ParameterFactory</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Application\Service\Client\Client</span> <span class="k">as</span> <span class="nx">ClientService</span><span class="p">;</span>
+<span class="nv">$identifier</span> <span class="o">=</span> <span class="nv">$argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="nv">$serviceManager</span> <span class="o">=</span> <span class="k">require_once</span> <span class="nx">__DIR__</span><span class="o">.</span><span class="s1">'/cpf-service_manager.php'</span><span class="p">;</span>
+<span class="nv">$clientService</span> <span class="o">=</span> <span class="nv">$serviceManager</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">'Application\Service\Client\Client'</span><span class="p">);</span>
 
-$where = [];
-if (is_int($identifier)) {
-    $where['id'] = $identifier;
-} else {
-    $where['email'] = $identifier;
-}
+<span class="nv">$where</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">is_int</span><span class="p">(</span><span class="nv">$identifier</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nv">$where</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$identifier</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nv">$where</span><span class="p">[</span><span class="s1">'email'</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$identifier</span><span class="p">;</span>
+<span class="p">}</span>
 
-$where['hash'] = ClientService::DELETE_CONFIRM_HASH;
-$params = ParameterFactory::factory($where);
-$clientService-&gt;delete($params);
+<span class="nv">$where</span><span class="p">[</span><span class="s1">'hash'</span><span class="p">]</span> <span class="o">=</span> <span class="nx">ClientService</span><span class="o">::</span><span class="na">DELETE_CONFIRM_HASH</span><span class="p">;</span>
+<span class="nv">$params</span> <span class="o">=</span> <span class="nx">ParameterFactory</span><span class="o">::</span><span class="na">factory</span><span class="p">(</span><span class="nv">$where</span><span class="p">);</span>
+<span class="nv">$clientService</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="nv">$params</span><span class="p">);</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>So I can interact with the services easily and yet with the power of
 PHP’s CLI interface. I know Zend Framework has it’s own Cli API, but

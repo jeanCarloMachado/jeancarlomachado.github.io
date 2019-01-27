@@ -51,7 +51,7 @@ developing inside Vim.</p>
 
 <p>The following function wraps PHPunit’s and allows me to run tests from inside vim and other goodies that I’ll describe below.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>function! RunPHPUnitTest(filter)
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function! RunPHPUnitTest(filter)
     cd %:p:h
     if a:filter
 
@@ -86,16 +86,14 @@ developing inside Vim.</p>
     cd -
 endfunction
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>With the following maps:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>nnoremap &lt;leader&gt;u :call RunPHPUnitTest(0)&lt;cr&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nnoremap &lt;leader&gt;u :call RunPHPUnitTest(0)&lt;cr&gt;
 nnoremap &lt;leader&gt;f :call RunPHPUnitTest(1)&lt;cr&gt;
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Now when I press <code class="highlighter-rouge">&lt;leader&gt;u</code> it runs the current file tests and prints the
 result in a new split. And when I press <code class="highlighter-rouge">&lt;leader&gt;f</code> while over a test name

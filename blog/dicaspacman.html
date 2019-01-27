@@ -51,66 +51,57 @@ listá-los aqui para facilitar a busca posterior.</p>
 
 <p>Obtém uma lista com todos os pacotes instalados no sistema.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>pacman -Qs
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pacman -Qs
+</code></pre></div></div>
 
 <h3 id="só-o-nome-do-pacote">Só o nome do pacote</h3>
 
 <p>Retorna somente o nome dos pacotes instalados que comecem com php.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>pacman -Qs -q php-
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pacman -Qs -q php-
+</code></pre></div></div>
 
 <h2 id="pesquisar-pacotes-online">Pesquisar pacotes online</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>pacman -Ss
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pacman -Ss
+</code></pre></div></div>
 
 <h2 id="qual-pacote-determinado-arquivo-pertence">Qual pacote determinado arquivo pertence</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>pacman -Qo /a/file/name
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pacman -Qo /a/file/name
+</code></pre></div></div>
 
 <h2 id="listagem-de-pacotes-orfãos">Listagem de pacotes orfãos</h2>
 
 <p>Pacotes que não são mais necessários como dependência.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>pacman -Qdt
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pacman -Qdt
+</code></pre></div></div>
 
 <h2 id="árvore-de-dependências-de-pacote">Árvore de dependências de pacote</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>pactree python
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pactree python
+</code></pre></div></div>
 
 <h2 id="arquivos-de-determinado-pacote-instalado">Arquivos de determinado pacote instalado</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>pacman -Ql oh-my-zsh-git
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pacman -Ql oh-my-zsh-git
+</code></pre></div></div>
 
 <h2 id="reinstalar-pacotes-com-determinado-padrão-de-nome">Reinstalar pacotes com determinado padrão de nome</h2>
 
 <p>Para reinstalar todos os pacotes relacionados a plugins de audio.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code> sudo pacman -Qqs gst | sudo pacman -Syu -
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> sudo pacman -Qqs gst | sudo pacman -Syu -
+</code></pre></div></div>
 
 <h3 id="instalar-pacotes-locais">Instalar pacotes locais</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>wget https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz
 tar xfz package-query.tar.gz
 cd package-query
 makepkg -sri
-</code></pre>
-</div>
+</code></pre></div></div>
 
 
     </div>

@@ -74,9 +74,8 @@ simple  <em>var_dump</em> on them will probably overflow your memory.
 Thinking on that, the <em>Commom</em> package provides a debug function
 that can be used as showed below:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Doctrine\Common\Util\Debug::dump()
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Doctrine\Common\Util\Debug::dump()
+</code></pre></div></div>
 
 <h3 id="dont-call-persist-on-managed-entities">Don’t call persist on managed entities</h3>
 
@@ -84,12 +83,11 @@ that can be used as showed below:</p>
 the entity state since the entity is already on Doctrine map of
 managed entities.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;?php
-$user = $entityManager-&gt;find("Person", 1);
-$user-&gt;setName("Guilherme");
-$entityManager-&gt;flush();
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="nv">$user</span> <span class="o">=</span> <span class="nv">$entityManager</span><span class="o">-&gt;</span><span class="na">find</span><span class="p">(</span><span class="s2">"Person"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s2">"Guilherme"</span><span class="p">);</span>
+<span class="nv">$entityManager</span><span class="o">-&gt;</span><span class="na">flush</span><span class="p">();</span>
+</code></pre></div></div>
 
 <h3 id="know-the-size-of-your-unitofwork">Know the size of your UnitOfWork</h3>
 
@@ -97,9 +95,8 @@ $entityManager-&gt;flush();
 for the developer to keep in mind  it’s current size. To do so the
 developer can use the method described below.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$uowSize = $em-&gt;getUnitOfWork()-&gt;size();
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$uowSize = $em-&gt;getUnitOfWork()-&gt;size();
+</code></pre></div></div>
 
 <h3 id="use-abbreviations-on-cli">Use abbreviations on CLI</h3>
 
@@ -108,15 +105,13 @@ understood the why of those ugly separators on the words.</p>
 
 <p>An example:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>doctirne-bin o:v
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>doctirne-bin o:v
+</code></pre></div></div>
 
 <p>To mean:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>doctirne-bin orm:validate-schema
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>doctirne-bin orm:validate-schema
+</code></pre></div></div>
 
 <hr />
 
@@ -146,16 +141,14 @@ anyway, is the use of phpunit’s fail.</p>
 <p>Fail as the name suggests is an API for the developer to say that
 an test failed. Before knowing it used to write:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>static::assertTrue(false);
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>static::assertTrue(false);
+</code></pre></div></div>
 
 <p>But with it the code seems much more elegant, and supports an
 argument with the failure reason.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>static::fail("Optionally with the reason of the failure");
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>static::fail("Optionally with the reason of the failure");
+</code></pre></div></div>
 
 <h2 id="exception-collections">Exception collections</h2>
 

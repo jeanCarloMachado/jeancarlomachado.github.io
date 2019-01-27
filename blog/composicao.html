@@ -55,18 +55,17 @@ pelo código abaixo (com sérias simplificações). Preciso pegar o perfil de um
 usuário. Crio uma classe que recebe o banco (ou alguma abstração do banco) e
 efetuo a busca.</p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code>class Profile {
-    public function __construct($db)
-    {
-        $this-&gt;db = $db;
-    }
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Profile</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nv">$db</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span> <span class="o">=</span> <span class="nv">$db</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    function get(int $id) {
-        return $this-&gt;db-&gt;query('Select * from User where id = %i', $id);
-    }
-}
-</code></pre>
-</div>
+    <span class="k">function</span> <span class="nf">get</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">'Select * from User where id = %i'</span><span class="p">,</span> <span class="nv">$id</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <p>Não tenho tantos problemas até aí. Vou reservar as críticas pra depois.
 Agora vamos imaginar que temos um requisito extra.</p>
@@ -78,27 +77,26 @@ requisitar a primeira vez ele não vá até o banco novamente.
 Bom, dado o código acima, imagino que a solução que 99% dos devs iriam seguir
 seria algo nessa linha:</p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code>class Profile {
-    public function __construct($db, $cache)
-    {
-        $this-&gt;db = $db;
-        $this-&gt;cache = $cache;
-    }
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Profile</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nv">$db</span><span class="p">,</span> <span class="nv">$cache</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span> <span class="o">=</span> <span class="nv">$db</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cache</span> <span class="o">=</span> <span class="nv">$cache</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    function get(int $id) {
-        if ($this-&gt;cache-&gt;has($id)) {
-            return $this-&gt;cache-&gt;get($id);
-        }
-        $user = $this-&gt;db-&gt;query('Select * from User where id = %i', $id);
+    <span class="k">function</span> <span class="nf">get</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cache</span><span class="o">-&gt;</span><span class="na">has</span><span class="p">(</span><span class="nv">$id</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cache</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">'Select * from User where id = %i'</span><span class="p">,</span> <span class="nv">$id</span><span class="p">);</span>
 
-        $this-&gt;cache-&gt;put($id, $user);
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cache</span><span class="o">-&gt;</span><span class="na">put</span><span class="p">(</span><span class="nv">$id</span><span class="p">,</span> <span class="nv">$user</span><span class="p">);</span>
 
-        return $user;
+        <span class="k">return</span> <span class="nv">$user</span><span class="p">;</span>
 
-    }
-}
-</code></pre>
-</div>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <p>Qual o problema dessa solução? Bom, primeiramente uma solução assim vai requerer
 bastante mocks pra testar. Sou forte defensor da heurística <strong>o que torna se
@@ -125,11 +123,10 @@ veio um gorila segurando ela.</p>
 <em>Envolve configurar corretamente um dispositivo de IO (nesse caso o banco) para
 retornar os dados corretos pra nós</em>. E qual a forma mais simples de fazer isso?</p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code>function getProfile(callable $persitence, int $id) {
-    return $persistence('Select * from User where id = %i', $id);
-}
-</code></pre>
-</div>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="nf">getProfile</span><span class="p">(</span><span class="nx">callable</span> <span class="nv">$persitence</span><span class="p">,</span> <span class="nx">int</span> <span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$persistence</span><span class="p">(</span><span class="s1">'Select * from User where id = %i'</span><span class="p">,</span> <span class="nv">$id</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
 <p>Só uma função comunica tudo que precisamos. E note o uso do
 callable. Não estou mais usando a api do banco no get-profile. Assumo
 que ela venha pronta pra mim, algo nessa linha: <code class="highlighter-rouge">$persistence =
@@ -146,45 +143,42 @@ construção do que é uso. O banco de dados entra na construção do objeto e e
 Onde você reduz uma função de múltiplos argumentos pra múltiplas funções de um
 argumento.</p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code>$append3 = function($a, $b, $c) {
-    return [$a, $b, $c];
-};
-$append1And2 = partial($append3)(1)(2);
-$append1And2(5)
-//[1,2,5]
-$append1And2(9)
-//[1,2,9]
-</code></pre>
-</div>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$append3</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">,</span> <span class="nv">$c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">[</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">,</span> <span class="nv">$c</span><span class="p">];</span>
+<span class="p">};</span>
+<span class="nv">$append1And2</span> <span class="o">=</span> <span class="nx">partial</span><span class="p">(</span><span class="nv">$append3</span><span class="p">)(</span><span class="mi">1</span><span class="p">)(</span><span class="mi">2</span><span class="p">);</span>
+<span class="nv">$append1And2</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="c1">//[1,2,5]</span>
+<span class="nv">$append1And2</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+<span class="c1">//[1,2,9]</span>
+</code></pre></div></div>
 
 <p>Uma implementação básica de aplicação parcial é assim:</p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code>function partial(callable $callable, ...$args) {
-    $arity = (new \ReflectionFunction($callable))
-        -&gt;getNumberOfRequiredParameters();
-    return $args[$arity - 1] ?? false
-    ? $callable(...$args)
-    : function (...$passedArgs) use ($callable, $args) {
-        return partial($callable,
-            ...array_merge($args, $passedArgs)
-        );
-    };
-}
-</code></pre>
-</div>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="nf">partial</span><span class="p">(</span><span class="nx">callable</span> <span class="nv">$callable</span><span class="p">,</span> <span class="o">...</span><span class="nv">$args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$arity</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">\ReflectionFunction</span><span class="p">(</span><span class="nv">$callable</span><span class="p">))</span>
+        <span class="o">-&gt;</span><span class="na">getNumberOfRequiredParameters</span><span class="p">();</span>
+    <span class="k">return</span> <span class="nv">$args</span><span class="p">[</span><span class="nv">$arity</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">??</span> <span class="kc">false</span>
+    <span class="o">?</span> <span class="nv">$callable</span><span class="p">(</span><span class="o">...</span><span class="nv">$args</span><span class="p">)</span>
+    <span class="o">:</span> <span class="k">function</span> <span class="p">(</span><span class="o">...</span><span class="nv">$passedArgs</span><span class="p">)</span> <span class="k">use</span> <span class="p">(</span><span class="nv">$callable</span><span class="p">,</span> <span class="nv">$args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">partial</span><span class="p">(</span><span class="nv">$callable</span><span class="p">,</span>
+            <span class="o">...</span><span class="nb">array_merge</span><span class="p">(</span><span class="nv">$args</span><span class="p">,</span> <span class="nv">$passedArgs</span><span class="p">)</span>
+        <span class="p">);</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <p>Não é importante entender como a função partial funciona. O
 importante é compreender como usá-la. Com aplicação parcial em mãos
 conseguimos separar a construção da nossa função de seu uso.</p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code>$getProfileConcrete = partial('getProfile')([$db, 'query']);
-$getProfileConcrete(666);
-//[
-//  'id' =&gt; 666,
-//  'name' =&gt; 'Gandalf',
-//]
-</code></pre>
-</div>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$getProfileConcrete</span> <span class="o">=</span> <span class="nx">partial</span><span class="p">(</span><span class="s1">'getProfile'</span><span class="p">)([</span><span class="nv">$db</span><span class="p">,</span> <span class="s1">'query'</span><span class="p">]);</span>
+<span class="nv">$getProfileConcrete</span><span class="p">(</span><span class="mi">666</span><span class="p">);</span>
+<span class="c1">//[</span>
+<span class="c1">//  'id' =&gt; 666,</span>
+<span class="c1">//  'name' =&gt; 'Gandalf',</span>
+<span class="c1">//]</span>
+</code></pre></div></div>
 
 <p>Feito. Agora cumprimos o primeiro requisito da forma mais simples possível.
 Vamos ao segundo.</p>
@@ -197,24 +191,23 @@ dados de uma chamada já estão dispiníveis pegar do cache, senão
 pegar da própria chamada. Existe um design pattern exatamente com esse
 propósito chamado <a href="https://en.wikipedia.org/wiki/Memoization">memoize</a>.</p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code>function memoize($func)
-{
-    return function() use ($func)
-    {
-        static $cache = [];
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="nf">memoize</span><span class="p">(</span><span class="nv">$func</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="k">function</span><span class="p">()</span> <span class="k">use</span> <span class="p">(</span><span class="nv">$func</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">static</span> <span class="nv">$cache</span> <span class="o">=</span> <span class="p">[];</span>
 
-        $args = func_get_args();
-        $key = md5(serialize($args));
+        <span class="nv">$args</span> <span class="o">=</span> <span class="nb">func_get_args</span><span class="p">();</span>
+        <span class="nv">$key</span> <span class="o">=</span> <span class="nb">md5</span><span class="p">(</span><span class="nb">serialize</span><span class="p">(</span><span class="nv">$args</span><span class="p">));</span>
 
-        if ( ! isset($cache[$key])) {
-            $cache[$key] = call_user_func_array($func, $args);
-        }
+        <span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$cache</span><span class="p">[</span><span class="nv">$key</span><span class="p">]))</span> <span class="p">{</span>
+            <span class="nv">$cache</span><span class="p">[</span><span class="nv">$key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">call_user_func_array</span><span class="p">(</span><span class="nv">$func</span><span class="p">,</span> <span class="nv">$args</span><span class="p">);</span>
+        <span class="p">}</span>
 
-        return $cache[$key];
-    };
-};
-</code></pre>
-</div>
+        <span class="k">return</span> <span class="nv">$cache</span><span class="p">[</span><span class="nv">$key</span><span class="p">];</span>
+    <span class="p">};</span>
+<span class="p">};</span>
+</code></pre></div></div>
 
 <p>Como apontei anteriormente o fato do guardar em cache estar dentro do get
 profile era um problema. Com o memoize é o contrário que acontece. O memoize
@@ -225,22 +218,21 @@ em qualquer função.</p>
 
 <p>E como juntamos as duas coisas?</p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code>$getProfileConcrete = partial('getProfile')([$db, 'query']);
-$getProfileConcreteMemoized = memoize($getProfileConcrete);
-$getProfileConcreteMemoized(666);
-//GO TO THE DATABASE
-//[
-//  'id' =&gt; 666,
-//  'name' =&gt; 'Gandalf',
-//]
-$getProfileConcreteMemoized(666);
-//DON'T GO TO THE DATABASE
-//[
-//  'id' =&gt; 666,
-//  'name' =&gt; 'Gandalf',
-//]
-</code></pre>
-</div>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$getProfileConcrete</span> <span class="o">=</span> <span class="nx">partial</span><span class="p">(</span><span class="s1">'getProfile'</span><span class="p">)([</span><span class="nv">$db</span><span class="p">,</span> <span class="s1">'query'</span><span class="p">]);</span>
+<span class="nv">$getProfileConcreteMemoized</span> <span class="o">=</span> <span class="nx">memoize</span><span class="p">(</span><span class="nv">$getProfileConcrete</span><span class="p">);</span>
+<span class="nv">$getProfileConcreteMemoized</span><span class="p">(</span><span class="mi">666</span><span class="p">);</span>
+<span class="c1">//GO TO THE DATABASE</span>
+<span class="c1">//[</span>
+<span class="c1">//  'id' =&gt; 666,</span>
+<span class="c1">//  'name' =&gt; 'Gandalf',</span>
+<span class="c1">//]</span>
+<span class="nv">$getProfileConcreteMemoized</span><span class="p">(</span><span class="mi">666</span><span class="p">);</span>
+<span class="c1">//DON'T GO TO THE DATABASE</span>
+<span class="c1">//[</span>
+<span class="c1">//  'id' =&gt; 666,</span>
+<span class="c1">//  'name' =&gt; 'Gandalf',</span>
+<span class="c1">//]</span>
+</code></pre></div></div>
 
 <p>Agora compomos a função get profile com o memoized gerando uma nova função:
 <code class="highlighter-rouge">getProfileConcreteMemoized</code>. O comportamento é exatamente o mesmo do exemplo
@@ -266,53 +258,49 @@ resolver?</strong></p>
 
 <p>Vamos dizer que é um logger</p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code>$logger = function(string $str);
-</code></pre>
-</div>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$logger</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$str</span><span class="p">);</span>
+</code></pre></div></div>
 
 <p>Bom, a interface mais simples é receber uma string pra logar.
 Se for um log de arquivo talvez tenha que ser maior:</p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code>$fileLoger = function($fileName, string $str) {
-    file_put_contents($fileName, $str);
-};
-</code></pre>
-</div>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$fileLoger</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="nv">$fileName</span><span class="p">,</span> <span class="nx">string</span> <span class="nv">$str</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">file_put_contents</span><span class="p">(</span><span class="nv">$fileName</span><span class="p">,</span> <span class="nv">$str</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div></div>
 
 <p><strong>2 - Use aplicação parcial pra injetar dependências</strong></p>
 
 <p>Na hora de usar só estamos interessados em passar uma string, então vamos
 reduzir com aplicação parcial:</p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code>$fileLoggerContrete = partial($fileLogger)('/tmp/foo');
-</code></pre>
-</div>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$fileLoggerContrete</span> <span class="o">=</span> <span class="nx">partial</span><span class="p">(</span><span class="nv">$fileLogger</span><span class="p">)(</span><span class="s1">'/tmp/foo'</span><span class="p">);</span>
+</code></pre></div></div>
 
 <p>Feito. Temos um logger.
 <strong>3 - Junte as funções com composição horizontal</strong></p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code>$serviceLogger = (callable $logger, $serviceName, callable $service) {
-    return function ($args) use ($logger, $service, $serviceName) {
-        $logger("Service ".$serviceName." called with params ".serialize($args));
-        return call_user_func($service, $args);
-    }
-};
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$serviceLogger</span> <span class="o">=</span> <span class="p">(</span><span class="nx">callable</span> <span class="nv">$logger</span><span class="p">,</span> <span class="nv">$serviceName</span><span class="p">,</span> <span class="nx">callable</span> <span class="nv">$service</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">function</span> <span class="p">(</span><span class="nv">$args</span><span class="p">)</span> <span class="k">use</span> <span class="p">(</span><span class="nv">$logger</span><span class="p">,</span> <span class="nv">$service</span><span class="p">,</span> <span class="nv">$serviceName</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$logger</span><span class="p">(</span><span class="s2">"Service "</span><span class="o">.</span><span class="nv">$serviceName</span><span class="o">.</span><span class="s2">" called with params "</span><span class="o">.</span><span class="nb">serialize</span><span class="p">(</span><span class="nv">$args</span><span class="p">));</span>
+        <span class="k">return</span> <span class="nb">call_user_func</span><span class="p">(</span><span class="nv">$service</span><span class="p">,</span> <span class="nv">$args</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
 
-$loggedGetProfile = $serviceLogger(
-    $fileLoggerContrete,
-    'getProfile',
-    $getProfileConcreteMemoized
-);
+<span class="nv">$loggedGetProfile</span> <span class="o">=</span> <span class="nv">$serviceLogger</span><span class="p">(</span>
+    <span class="nv">$fileLoggerContrete</span><span class="p">,</span>
+    <span class="s1">'getProfile'</span><span class="p">,</span>
+    <span class="nv">$getProfileConcreteMemoized</span>
+<span class="p">);</span>
 
-//GO TO THE DATABASE
-//[
-//  'id' =&gt; 666,
-//  'name' =&gt; 'Gandalf',
-//]
-// AND LOG
-// Service getprofile called with params {666}
-</code></pre>
-</div>
+<span class="c1">//GO TO THE DATABASE</span>
+<span class="c1">//[</span>
+<span class="c1">//  'id' =&gt; 666,</span>
+<span class="c1">//  'name' =&gt; 'Gandalf',</span>
+<span class="c1">//]</span>
+<span class="c1">// AND LOG</span>
+<span class="c1">// Service getprofile called with params {666}</span>
+</code></pre></div></div>
 
 <p>Pronto! Implementamos um get-profile que guarda em cache e faz log sem precisar
 sujar o código get-profile. Melhor que isso. Todos esses componenetes criados

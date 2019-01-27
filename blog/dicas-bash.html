@@ -151,43 +151,37 @@
 
 <h3 id="facilitando-o-backup">Facilitando o Backup</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>cp /etc/http/conf.d/httpd.conf{,~}
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp /etc/http/conf.d/httpd.conf{,~}
+</code></pre></div></div>
 <p>é equivalente à</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>cp /etc/http/conf.d/httpd.conf /etc/http/conf.d/httpd.conf~
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp /etc/http/conf.d/httpd.conf /etc/http/conf.d/httpd.conf~
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="para-restaurar">Para restaurar</h3>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>cp /etc/http/conf.d/httpd.conf{~,}
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp /etc/http/conf.d/httpd.conf{~,}
+</code></pre></div></div>
 
 <h3 id="ranges-em-meio-à-strings">Ranges em meio à strings</h3>
 
 <p>Geralmente não lembro desta funcionalidade nos raros casos que necessito dela mas algumas opções são:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>mkdir -p /squashed/{usr,opt}/{rw,ro}
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir -p /squashed/{usr,opt}/{rw,ro}
+</code></pre></div></div>
 
 <p>equivalente à</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code> mkdir -p /squashed/usr/rw \
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> mkdir -p /squashed/usr/rw \
  /squashed/usr/ro \
  /squashed/opt/rw \
  /squashed/opt/ro
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="expansão-de-padrões">Expansão de padrões</h3>
-<div class="highlighter-rouge"><pre class="highlight"><code>echo {0..9}{A..Z}
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo {0..9}{A..Z}
+</code></pre></div></div>
 <p>Imprime 260 combinações!</p>
 
 <p><strong>Novas dicas são extremamente bem vindas.</strong></p>

@@ -53,15 +53,13 @@
 
 <p><strong>Exemplo</strong>:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>ack ... --no-js --no-yaml
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ack ... --no-js --no-yaml
+</code></pre></div></div>
 
 <p>Para filtrar  por tudo menos javascript e yaml.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>ack ... --php --js
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ack ... --php --js
+</code></pre></div></div>
 
 <p>Para filtrar por arquivos javascript e php.</p>
 
@@ -71,35 +69,30 @@
 
 <p>Para escapar um caractere em uma expressão</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>ack '\$foo = \$bar'
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ack '\$foo = \$bar'
+</code></pre></div></div>
 
 <p>Para escapar todos os caracteres de uma expressão</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>ack -Q '$foo = $bar'
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ack -Q '$foo = $bar'
+</code></pre></div></div>
 
 <h2 id="retornando-apenas-os-nomes-dos-arquivos">Retornando apenas os nomes dos arquivos</h2>
 
 <p>A opção -l é muito útil principalmente em conjunto com outros scripts como o sed para substituir o contéudo.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>ack -l "$USER" /etc
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ack -l "$USER" /etc
+</code></pre></div></div>
 
 <h2 id="pesquisando-por-palavras-fechadas">Pesquisando por palavras “fechadas”</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>ack -w require
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ack -w require
+</code></pre></div></div>
 
 <p>Igualmente possível</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>ack '\brequire\b'
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ack '\brequire\b'
+</code></pre></div></div>
 
 <h2 id="visualizando-a-vizinhança">Visualizando a vizinhança</h2>
 <p>Em alguns casos é interessante ver além do conteúdo procurado. Dependendo de como ele foi disposto (indentado ou não), o que estamos procurando por vezes está uma ou duas linhas acima ou abaixo.</p>
@@ -107,9 +100,8 @@
 <p>Para esses casos existe a opção  <code class="highlighter-rouge">-C num</code>, que permite especificar quantas linhas ao redor do conteúdo encontrado serão mostradas.</p>
 
 <p>Por exemplo, preciso saber quais entradas da classe product não setam o entity manager antes de rodar o build. Se a chamada de build for indentada pode ser que a informação que eu precise esteja algumas linhas abaixo:</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>ack -C 3 -Q "Inventory\Test\Fixture\Product" module
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ack -C 3 -Q "Inventory\Test\Fixture\Product" module
+</code></pre></div></div>
 
 <h2 id="vim">Vim</h2>
 
@@ -119,17 +111,15 @@
 
 <p>Para abrir os arquivos encontrados em uma busca com o ack no vim utilize:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code> $ vim -p $(!! -l)
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> $ vim -p $(!! -l)
+</code></pre></div></div>
 
 <h2 id="find">Find</h2>
 
 <p>Ack também pode ser usado no lugar do find para simplesmente encontrar arquivos por nome. O find é cheio de idiossincrasias que se devem a sua idade avançada, sendo assim eu acabo utilizando o ack no seu lugar, reciclando o conhecimento.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>ack -g 'Product*.php' module/
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ack -g 'Product*.php' module/
+</code></pre></div></div>
 
 <h2 id="ack-com-pipe">Ack com pipe</h2>
 
@@ -137,20 +127,18 @@
 
 <p>Utilizando em conjunto a opção -g é possível unir vários ack’s, alguns para pegar por nomes de arquivos, outros para filtrar o conteúdo dentro destes arquivos.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>ack -g "[^A-Za-z]tests" module/ | ack --files-from=- "Category"
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ack -g "[^A-Za-z]tests" module/ | ack --files-from=- "Category"
+</code></pre></div></div>
 
 <h2 id="ack-e-sed">Ack e Sed</h2>
 
 <p>Muitas vezes filtrar não é o suficiente, desejamos mudar o conteúdo das entradas que encontramos. Para isso podemos utilizar o ack em conjunto com o sed.</p>
 
 <p>Para substituir todas as ocorrências de gandalf por saruman:</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>s1="gandalf"
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s1="gandalf"
 ack -Rl $s1 module/ | xargs sed -i "s/$s1/saruman/g"
 
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>Geralmente uso uma variável bash para não ter que escrever a busca mais de uma vez.</p>
 
 <p>Pretendo adicionar mais dicas aqui conforme vou crescendo em experiência com o ack. Certamente é uma ferramenta muito poderosa para aqueles que adotam o <a href="http://c2.com/cgi/wiki?UnixWay">Unix Way</a>.</p>

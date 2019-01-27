@@ -57,68 +57,63 @@ statement</em>.</p>
 
 <p>Let’s go to an example.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;?php
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
 
-namepace MyProject;
+<span class="nx">namepace</span> <span class="nx">MyProject</span><span class="p">;</span>
 
-use MyProject\Car\PortInterface;
+<span class="k">use</span> <span class="nx">MyProject\Car\PortInterface</span><span class="p">;</span>
 
-class Car
-{
-    private $engine;
-    private $leftPort;
-    private $rightPort;
+<span class="k">class</span> <span class="nc">Car</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$engine</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$leftPort</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$rightPort</span><span class="p">;</span>
 
-    public function __construct(
-        \MyProject\Car\EngineInterface $engine,
-        PortInterface $leftPor, 
-        PortInterface $rightPort
-    )
-    {
-        $this-&gt;engine = $engine; 
-        $this-&gt;leftPort = $leftPort; 
-        $this-&gt;rightPort = $rightPort; 
-    }
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span>
+        <span class="nx">\MyProject\Car\EngineInterface</span> <span class="nv">$engine</span><span class="p">,</span>
+        <span class="nx">PortInterface</span> <span class="nv">$leftPor</span><span class="p">,</span> 
+        <span class="nx">PortInterface</span> <span class="nv">$rightPort</span>
+    <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">engine</span> <span class="o">=</span> <span class="nv">$engine</span><span class="p">;</span> 
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">leftPort</span> <span class="o">=</span> <span class="nv">$leftPort</span><span class="p">;</span> 
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">rightPort</span> <span class="o">=</span> <span class="nv">$rightPort</span><span class="p">;</span> 
+    <span class="p">}</span>
 
-}
+<span class="p">}</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>As you can see, the port class is used twice and because of that I used
 the <em>use</em> statement. Now, since the Engine class I used a single time, I
 preferred to place the full FQDN.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>echo "\MyProject\Car\EngineInterface" | wc -m
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "\MyProject\Car\EngineInterface" | wc -m
 31
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>The engine as used above has 31 chars, on the use form I would
 have 35.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>echo "use MyProject\Car\EngineInterface;" | wc -m
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "use MyProject\Car\EngineInterface;" | wc -m
 35
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>In the case of the ports, with the use I have 14 for each usage plus 33, totaling 61.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>echo "PortInterface" | wc -m
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "PortInterface" | wc -m
 14
 
 echo "use MyProject\Car\PortInterface;" | wc -m
 33
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>I would get 29, times two using FQDN, totaling 58
 chars.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>echo "\MyProject\Car\PortInterface" | wc -m
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "\MyProject\Car\PortInterface" | wc -m
 29
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>61 is a little bigger than 58 but you can see how the use scales
 well for more occurrences. One might even use the alias resource

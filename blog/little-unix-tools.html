@@ -49,46 +49,42 @@
 
 <p>When you want to copy something from a shell result use this:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
 
-<span class="nv">data</span><span class="o">=</span><span class="k">${</span><span class="nv">1</span><span class="k">:-$(</span>cat /dev/stdin<span class="k">)}</span>
-xsel --clipboard <span class="o">&lt;&lt;&lt;</span> <span class="s2">"</span><span class="nv">$data</span><span class="s2">"</span>
-xsel --primary <span class="o">&lt;&lt;&lt;</span> <span class="s2">"</span><span class="nv">$data</span><span class="s2">"</span>
-xsel --secondary <span class="o">&lt;&lt;&lt;</span> <span class="s2">"</span><span class="nv">$data</span><span class="s2">"</span>
-</code></pre>
-</div>
+<span class="nv">data</span><span class="o">=</span><span class="k">${</span><span class="nv">1</span><span class="k">:-$(</span><span class="nb">cat</span> /dev/stdin<span class="k">)}</span>
+xsel <span class="nt">--clipboard</span> <span class="o">&lt;&lt;&lt;</span> <span class="s2">"</span><span class="nv">$data</span><span class="s2">"</span>
+xsel <span class="nt">--primary</span> <span class="o">&lt;&lt;&lt;</span> <span class="s2">"</span><span class="nv">$data</span><span class="s2">"</span>
+xsel <span class="nt">--secondary</span> <span class="o">&lt;&lt;&lt;</span> <span class="s2">"</span><span class="nv">$data</span><span class="s2">"</span>
+</code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>echo "foo" | mycopy #will copy foo to the clippboard
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "foo" | mycopy #will copy foo to the clippboard
+</code></pre></div></div>
 
 <h2 id="edit-binary-everywhere">Edit binary everywhere</h2>
 
 <p>Since I use a lot of scripts on my workstation I want to be able
 to edit them on demand without having to move where they are.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
 
 <span class="nb">command</span><span class="o">=</span><span class="nv">$1</span>
 
-<span class="nv">file</span><span class="o">=</span><span class="k">$(</span>whereis <span class="nv">$command</span> | cut -d<span class="s1">' '</span> -f2<span class="k">)</span>
+<span class="nv">file</span><span class="o">=</span><span class="k">$(</span>whereis <span class="nv">$command</span> | <span class="nb">cut</span> <span class="nt">-d</span><span class="s1">' '</span> <span class="nt">-f2</span><span class="k">)</span>
 vim <span class="nv">$file</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>To edit the vibin command with itself (recursively).</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>vibin vibin
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vibin vibin
+</code></pre></div></div>
 
 <h2 id="regex-test">Regex test</h2>
 
 <p>If you wanna a quick way of debugging a regex:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
 
-<span class="k">if</span> <span class="o">[[</span> <span class="nv">$# </span>-lt 2 <span class="o">]]</span>; <span class="k">then
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$# </span><span class="nt">-lt</span> 2 <span class="o">]]</span><span class="p">;</span> <span class="k">then
     </span><span class="nb">echo</span> <span class="s2">"Usage: </span><span class="nv">$0</span><span class="s2"> PATTERN STRINGS..."</span>
     <span class="nb">exit </span>1
 <span class="k">fi
@@ -99,40 +95,37 @@ vim <span class="nv">$file</span>
 
 </span><span class="k">while</span> <span class="o">[[</span> <span class="nv">$1</span> <span class="o">]]</span>
 <span class="k">do
-    if</span> <span class="o">[[</span> <span class="nv">$1</span> <span class="o">=</span>~ <span class="nv">$regex</span> <span class="o">]]</span>; <span class="k">then
+    if</span> <span class="o">[[</span> <span class="nv">$1</span> <span class="o">=</span>~ <span class="nv">$regex</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then
         </span><span class="nb">echo</span> <span class="s2">"Value: </span><span class="nv">$1</span><span class="s2"> matches regex: </span><span class="nv">$regex</span><span class="s2">"</span>
     <span class="k">else
         </span><span class="nb">echo</span> <span class="s2">"Value: </span><span class="nv">$1</span><span class="s2"> does not match regex: </span><span class="nv">$regex</span><span class="s2">"</span>
     <span class="k">fi
     </span><span class="nb">shift
 </span><span class="k">done</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="human-readable-json">Human readable JSON</h2>
 
 <p>Python has this nice utility to parse JSON in a human readable way, so I
 made an alias to be able to use it without thinking.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>alias json-beautifier='python -m json.tool'
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>alias json-beautifier='python -m json.tool'
+</code></pre></div></div>
 
 <p>Usage:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>echo '{"foo":"bar"}' | json-beautifier
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo '{"foo":"bar"}' | json-beautifier
 
 {
     "foo": "bar"
 }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="xml-to-json">XML to JSON</h2>
 
 <p>Want a JSON from a XML? Pipe it through this command.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>#!/usr/bin/env php
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/usr/bin/env php
 <span class="cp">&lt;?php</span>
 
 <span class="nv">$identifier</span> <span class="o">=</span> <span class="nv">$argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">??</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="s2">"php://stdin"</span><span class="p">);</span>
@@ -146,12 +139,11 @@ made an alias to be able to use it without thinking.</p>
 <span class="nv">$content</span> <span class="o">=</span> <span class="nb">simplexml_load_string</span><span class="p">(</span><span class="nv">$content</span><span class="p">);</span>
 
 <span class="k">echo</span> <span class="nb">json_encode</span><span class="p">(</span><span class="nv">$content</span><span class="p">);</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="translate-text">Translate text</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c">#! /usr/bin/env bash</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#! /usr/bin/env bash</span>
 <span class="c"># af ar az be bn bg bs ca cub zh-CN zh-TW cs cy da de en en_us en_gb en_au </span>
 <span class="c"># el es et eu fa fi fr ga gl gu ht hi hmn hr hu hy is id it iw ja jw ka km </span>
 <span class="c"># kn ko la lv lt mk mr ms mt no nl pl pt ro ru sr sk sl sq sw sv ta te th </span>
@@ -165,7 +157,7 @@ made an alias to be able to use it without thinking.</p>
 <span class="k">case</span> <span class="s2">"$#"</span> <span class="k">in</span>
 <span class="s1">'2'</span> <span class="p">)</span>
     <span class="c"># echo "Two arguments"</span>
-    <span class="k">if</span> <span class="o">[[</span> <span class="nv">$1</span> <span class="o">=</span> <span class="s2">"pt"</span> <span class="o">]]</span>; <span class="k">then
+    <span class="k">if</span> <span class="o">[[</span> <span class="nv">$1</span> <span class="o">=</span> <span class="s2">"pt"</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then
        </span><span class="nv">inputLang</span><span class="o">=</span><span class="s1">'en'</span>
        <span class="nv">outputLang</span><span class="o">=</span><span class="s1">'pt'</span>
     <span class="k">else
@@ -199,30 +191,28 @@ made an alias to be able to use it without thinking.</p>
 <span class="k">esac</span>
 
 
-<span class="nv">result</span><span class="o">=</span><span class="k">$(</span>curl -s -i --user-agent <span class="s2">""</span> -d <span class="s2">"sl=</span><span class="nv">$inputLang</span><span class="s2">"</span> <span class="se">\ </span>
-    -d <span class="s2">"tl=</span><span class="nv">$outputLang</span><span class="s2">"</span> --data-urlencode <span class="s2">"text=</span><span class="nv">$text</span><span class="s2">"</span> <span class="se">\</span>
+<span class="nv">result</span><span class="o">=</span><span class="k">$(</span>curl <span class="nt">-s</span> <span class="nt">-i</span> <span class="nt">--user-agent</span> <span class="s2">""</span> <span class="nt">-d</span> <span class="s2">"sl=</span><span class="nv">$inputLang</span><span class="s2">"</span> <span class="se">\ </span>
+    <span class="nt">-d</span> <span class="s2">"tl=</span><span class="nv">$outputLang</span><span class="s2">"</span> <span class="nt">--data-urlencode</span> <span class="s2">"text=</span><span class="nv">$text</span><span class="s2">"</span> <span class="se">\</span>
     https://translate.google.com<span class="k">)</span>
 <span class="c"># echo $result</span>
-<span class="nv">encoding</span><span class="o">=</span><span class="k">$(</span>awk  <span class="se">\</span>
+<span class="nv">encoding</span><span class="o">=</span><span class="k">$(</span><span class="nb">awk</span>  <span class="se">\</span>
 <span class="s1">'/Content-Type: .* charset=/ {sub(/^.*charset=["'</span><span class="se">\'</span><span class="s1">']?/,"");
 sub(/[ "'</span><span class="se">\'</span><span class="s1">'].*$/,""); print}'</span>  <span class="se">\</span>
 <span class="o">&lt;&lt;&lt;</span><span class="s2">"</span><span class="nv">$result</span><span class="s2">"</span><span class="k">)</span>
 
-<span class="nv">result</span><span class="o">=</span><span class="k">$(</span>iconv -f <span class="nv">$encoding</span> <span class="o">&lt;&lt;&lt;</span><span class="s2">"</span><span class="nv">$result</span><span class="s2">"</span> |  awk <span class="se">\ </span>
+<span class="nv">result</span><span class="o">=</span><span class="k">$(</span>iconv <span class="nt">-f</span> <span class="nv">$encoding</span> <span class="o">&lt;&lt;&lt;</span><span class="s2">"</span><span class="nv">$result</span><span class="s2">"</span> |  <span class="nb">awk</span> <span class="se">\ </span>
 <span class="s1">'BEGIN {RS="&lt;/div&gt;"};/&lt;span[^&gt;]* id=["'</span><span class="se">\'</span><span class="s1">']?result_box["'</span><span class="se">\'</span><span class="s1">']?/'</span> <span class="se">\ </span>
-| html2text | head -n 1<span class="k">)</span>
+| html2text | <span class="nb">head</span> <span class="nt">-n</span> 1<span class="k">)</span>
 
 <span class="nb">echo</span> <span class="nv">$result</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>To translate use:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>translate en pt "dog"
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>translate en pt "dog"
 translate pt en "cachorro"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="global-snippets">Global Snippets</h2>
 
@@ -232,29 +222,28 @@ program you are currently using.</p>
 
 <p>It depends upon dmenu, xdotool, xclipp and mycopy (the one above).</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
 
-<span class="k">if</span> <span class="o">[</span> -f <span class="nv">$HOME</span>/.dmenurc <span class="o">]</span>; <span class="k">then</span>
-  . <span class="nv">$HOME</span>/.dmenurc
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-f</span> <span class="nv">$HOME</span>/.dmenurc <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+  <span class="nb">.</span> <span class="nv">$HOME</span>/.dmenurc
 <span class="k">else
   </span><span class="nv">DMENU</span><span class="o">=</span><span class="s1">'dmenu -i'</span>
 <span class="k">fi
 
-</span><span class="nv">key</span><span class="o">=</span><span class="sb">`</span>cat ~/.snippets | cut -d <span class="s1">'='</span> -f1 | <span class="nv">$DMENU</span> <span class="nv">$*</span> -p <span class="s2">"Get value"</span><span class="sb">`</span>
+</span><span class="nv">key</span><span class="o">=</span><span class="sb">`</span><span class="nb">cat</span> ~/.snippets | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s1">'='</span> <span class="nt">-f1</span> | <span class="nv">$DMENU</span> <span class="nv">$*</span> <span class="nt">-p</span> <span class="s2">"Get value"</span><span class="sb">`</span>
 
-<span class="nv">value</span><span class="o">=</span><span class="k">$(</span>cat ~/.snippets | grep <span class="nv">$key</span> | cut -d<span class="s1">'='</span> -f2 | get-line 1<span class="k">)</span>
+<span class="nv">value</span><span class="o">=</span><span class="k">$(</span><span class="nb">cat</span> ~/.snippets | <span class="nb">grep</span> <span class="nv">$key</span> | <span class="nb">cut</span> <span class="nt">-d</span><span class="s1">'='</span> <span class="nt">-f2</span> | get-line 1<span class="k">)</span>
 mycopy <span class="s2">"</span><span class="nv">$value</span><span class="s2">"</span>
 
 <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$value</span><span class="s2">"</span>
 
-sh -c <span class="s1">'sleep 0.9; xdotool type "$(xclip -o -selection clipboard)"'</span>
+sh <span class="nt">-c</span> <span class="s1">'sleep 0.9; xdotool type "$(xclip -o -selection clipboard)"'</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>You declare your snippets this way:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>#file ~/.snippets
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#file ~/.snippets
 cpf=6666
 name=Jean Carlo Machado
 NAME=JEAN CARLO MACHADO
@@ -269,8 +258,7 @@ birthday=666
 phone=6666
 street=foo
 bairro=bar
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>So you invoke the program with a shortcut and select the key or
 type a part of it and the value will be pasted.</p>
 

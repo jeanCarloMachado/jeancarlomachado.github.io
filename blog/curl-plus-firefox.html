@@ -60,32 +60,29 @@ CURL request made by the browser</a>.</p>
 
 <p>Any way, I usually end up with a request like this.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>curl -X POST -H "Authorization: token" \
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -X POST -H "Authorization: token" \
 -H "Content-Type: application/x-www-form-urlencoded" \
 http://clipp.dev/report/v1/finance.get_revenue.html  -d "filters[]"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="automating-the-parts">Automating the parts</h2>
 
 <p>The next step I take is to update dynamic parts of the request through scripts.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>curl -X POST -H "Authorization: $(clipp-get-token)" \
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -X POST -H "Authorization: $(clipp-get-token)" \
 -H "Content-Type: application/x-www-form-urlencoded" \
 http://clipp.dev/report/v1/finance.get_revenue.html  -d "filters[]"
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>In this case I created a Bash script called <em>clipp-get-token</em>, it’s
 purpose is to return me a properly formatted and valid authentication
 token so I don’t have to bother with token timeouts.</p>
 
 <p>The relevant part of the script is as it follows.</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>result=`curl -X POST -H "Content-Type: application/x-www-form-urlencoded" \
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>result=`curl -X POST -H "Content-Type: application/x-www-form-urlencoded" \
 -d "login=$user&amp;password=$passwd" http://clipp.dev/rpc/v1/application.authenticate.json`
 result=`echo $result | cut -d':' -f3 | cut -d'"' -f2`
 echo "$result"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="the-result">The Result</h2>
 
@@ -97,10 +94,9 @@ way to send the CURL output to Firefox as a stream of text instead of a
 file.</p>
 
 <p>To achieve that, you must use firefox as it follows:</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>echo "stream" | firefox-developer "data:text/html;base64,$(base64 -w 0 &lt;&amp;0)"
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "stream" | firefox-developer "data:text/html;base64,$(base64 -w 0 &lt;&amp;0)"
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><em>Note:</em> It only works with pipe, I’m yet to find a way to achieve the
 same with a redirection <code class="highlighter-rouge">&lt;&lt;</code>.</p>
@@ -110,18 +106,16 @@ it on the terminal it’s not so good. But works as well with XML, even
 JSON is returned in a nice visual way.
 To illustrate a complete example of the flow is the request below.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>curl -X POST -H "Authorization: $(clipp-get-token)" \
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -X POST -H "Authorization: $(clipp-get-token)" \
 -H "Content-Type: application/x-www-form-urlencoded" \
 http://clipp.dev/report/v1/finance.get_revenue.html  -d "filters[]" | sfox
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Sfox for <em>stream firefox</em> is simply a alias for the string previously
 showed, this way is clear and concise.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>alias sfox='firefox-developer "data:text/html;base64,$(base64 -w 0 &lt;&amp;0)"'
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>alias sfox='firefox-developer "data:text/html;base64,$(base64 -w 0 &lt;&amp;0)"'
+</code></pre></div></div>
 
 <h2 id="conclusion">Conclusion</h2>
 

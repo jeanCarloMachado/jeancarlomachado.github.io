@@ -54,11 +54,10 @@ graphite service in the host to be able to reuse it on reboots.</p>
 
 <h2 id="detect-the-uid-and-gid-of-the-folder-on-the-container">Detect the uid and gid of the folder on the container</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>docker exec -it 710ec sh -c "ls -l -n /var/lib/graphite"
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker exec -it 710ec sh -c "ls -l -n /var/lib/graphite"
 -rw-r--r-- 1 105 106    0 May 19 00:47 search_index
 drwxr-xr-x 4 105 106 4096 May 22 22:26 whisper
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>So the uid is 105 and the gid is 106.</p>
 
@@ -68,22 +67,19 @@ drwxr-xr-x 4 105 106 4096 May 22 22:26 whisper
 step. But in most cases probability points for you to having to
 create those.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>echo "graphitedata:x:106:" &gt;&gt; /etc/group
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "graphitedata:x:106:" &gt;&gt; /etc/group
 newusers &lt;&lt;&lt; "graphitedata:foobar:105:106:graphitedata::/bin/bash"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="give-the-permission-in-the-host-for-the-user-and-group">Give the permission in the host for the user and group</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>chown -R graphitedata:graphitedata /path/to/the/host/database
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chown -R graphitedata:graphitedata /path/to/the/host/database
+</code></pre></div></div>
 
 <h2 id="point-to-the-volume-in-the-startup">Point to the volume in the startup</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>docker run ... -v /path/to/the/host/database:/var/lib/graphite $imageid "..."
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run ... -v /path/to/the/host/database:/var/lib/graphite $imageid "..."
+</code></pre></div></div>
 
 <p>That’s it, it’s simple and solve the majority of my problems. If
 it is useful for you too let me know :).</p>

@@ -49,7 +49,7 @@ of developers. For those who do not program in ZF2 it is a valuable
 asset as well - it may serve as an example of naming convention (at
 last!) and as an application of the so called horizontal reuse in PHP.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>ack -g "Trait" vendor/zendframework/
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ack -g "Trait" vendor/zendframework/
 zend-inputfilter/src/InputFilterAwareTrait.php
 zend-code/src/Generator/TraitGenerator.php
 zend-code/src/Generator/TraitUsageInterface.php
@@ -68,8 +68,7 @@ zend-form/src/LabelAwareTrait.php
 zend-form/src/FormFactoryAwareTrait.php
 zend-i18n/src/Translator/TranslatorAwareTrait.php
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><strong>OBS: this is not an exaustive list, these are only from a little collection of ZF2’s modules that I use currently.</strong></p>
 
@@ -79,20 +78,19 @@ by contract</a>.</p>
 
 <p>Below is an example of utilization of the <em>ServiceLocatorAwareTrait</em>.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;?php
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
 
-namespace Core\Service;
+<span class="k">namespace</span> <span class="nx">Core\Service</span><span class="p">;</span>
 
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
-use Zend\ServiceManager\ServiceLocatorAwareTrait;
+<span class="k">use</span> <span class="nx">Zend\ServiceManager\ServiceLocatorAwareInterface</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Zend\ServiceManager\ServiceLocatorAwareTrait</span><span class="p">;</span>
 
-class Metadata implements ServiceLocatorAwareInterface
-{
-    use ServiceLocatorAwareTrait;
-}
+<span class="k">class</span> <span class="nc">Metadata</span> <span class="k">implements</span> <span class="nx">ServiceLocatorAwareInterface</span>
+<span class="p">{</span>
+    <span class="k">use</span> <span class="nx">ServiceLocatorAwareTrait</span><span class="p">;</span>
+<span class="p">}</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><em>OBS: This pattern of usage applies as well for all the other
 AwareTraits listed above</em>.</p>
@@ -103,7 +101,7 @@ must remain. Anyway now you are free from implementing it.</p>
 <p>Here is the implementation of <em>ServiceLocatorAwareTrait</em> (there are
 bigger aware interfaces than this one):</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    protected $serviceLocator = null;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    protected $serviceLocator = null;
 
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
     {
@@ -116,8 +114,7 @@ bigger aware interfaces than this one):</p>
     {
         return $this-&gt;serviceLocator;
     }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <hr />
 

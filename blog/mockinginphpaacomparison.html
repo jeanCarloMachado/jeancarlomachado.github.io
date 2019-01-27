@@ -61,36 +61,34 @@ forcibly in your face. With libs of mocking one sometimes see the
 implementation being searched and override before testing. Which can
 decrease readability.</p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code>    private function getTransmitterMock()
-    {
-        return new class () {
-            public function transmit($nfe)
-            {
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="k">private</span> <span class="k">function</span> <span class="nf">getTransmitterMock</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="k">class</span> <span class="err">()</span> <span class="err">{</span>
+            <span class="nc">public</span> <span class="k">function</span> <span class="nf">transmit</span><span class="p">(</span><span class="nv">$nfe</span><span class="p">)</span>
+            <span class="p">{</span>
 
-            }
-        };
-    }
+            <span class="p">}</span>
+        <span class="p">};</span>
+    <span class="p">}</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="mockery">Mockery</h2>
 
 <p>The mockery is a good for spying, on simple cases.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>        $uploadMock = \Mockery::mock('Core\Service\Upload\UploadInterface');
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        $uploadMock = \Mockery::mock('Core\Service\Upload\UploadInterface');
         $uploadMock-&gt;shouldReceive('upload')
             -&gt;once()
             -&gt;andReturn((new \Core\Service\Upload\File))
             -&gt;byDefault();
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>One can define how it’s called as well. Ideal to test
 interaction with third party libs.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>        $mockResponse = Mockery::mock();
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        $mockResponse = Mockery::mock();
         $mockResponse-&gt;shouldReceive('get')
             -&gt;withArgs(['89700000'])
             -&gt;andReturn(
@@ -103,8 +101,7 @@ interaction with third party libs.</p>
                 ]
             );
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>I tend to see Mockery as an simpler mocking lib than PHP unit’s
 one,  but it sometimes lacks it’s power as well.</p>
@@ -121,7 +118,7 @@ implementations, overriding only parts of a concrete class.</p>
 <p>The impression I’ve got it’s that it’s API is more verbose,
 nevertheless more powerful as well.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    $mock = $this-&gt;getMockBuilder('\Finance\Service\Category\GatewayInterface')
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    $mock = $this-&gt;getMockBuilder('\Finance\Service\Category\GatewayInterface')
         -&gt;setMethods(['saveCategory', 'getCategoryByName'])
         -&gt;getMock();
 
@@ -131,14 +128,13 @@ nevertheless more powerful as well.</p>
         )
     );
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Another good use for phpunit’s mocks features is to test if an given
 object is called with the right arguments when these given arguments
 needs some sort of processing.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    $mock = $this-&gt;getMockBuilder('PaymentService')
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    $mock = $this-&gt;getMockBuilder('PaymentService')
         -&gt;setMethods(['create'])
         -&gt;getMock();
 
@@ -150,8 +146,7 @@ needs some sort of processing.</p>
             );
         }))-&gt;will($this-&gt;returnValue(null));
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <hr />
 

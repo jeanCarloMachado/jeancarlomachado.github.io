@@ -59,14 +59,12 @@ remote vanilla vim.</p>
 
 <h2 id="mount-the-file-system">Mount the file system</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sshfs $USER@$SERVER_IP:$REMOTE_FOLDER $LOCAL_FOLDER -o IdentityFile=$MY_PEM_FILE
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sshfs $USER@$SERVER_IP:$REMOTE_FOLDER $LOCAL_FOLDER -o IdentityFile=$MY_PEM_FILE
+</code></pre></div></div>
 
 <h2 id="umount-the-file-system">Umount the file system</h2>
-<div class="highlighter-rouge"><pre class="highlight"><code>fusermount -u $LOCAL_FOLDER
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fusermount -u $LOCAL_FOLDER
+</code></pre></div></div>
 
 <p>I also read that it can be used as entry on /etc/fstab to automatize the mounting the process. If you liked the tool I recommend the <a href="https://wiki.archlinux.org/index.php/SSHFS">excellent documentation</a> on Arch’s wiki.</p>
 
