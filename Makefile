@@ -21,6 +21,6 @@ deploy:  build
 	rm -rf ${HOME}/projects/jeancarlomachado.github.io/index.html || true
 	cp -rf ${HOME}/projects/blog/dist/* ${HOME}/projects/jeancarlomachado.github.io
 	cd ${HOME}/projects/jeancarlomachado.github.io ; git add .
-	cd ${HOME}/projects/jeancarlomachado.github.io ; git commit -m 'automatic commit'
+	cd ${HOME}/projects/jeancarlomachado.github.io ; git commit -m 'automatic commit' || true
 	cd ${HOME}/projects/jeancarlomachado.github.io ; git push origin master
 
