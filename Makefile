@@ -4,7 +4,7 @@ BLOG_REPO=${HOME}/projects/blog
 all: watch
 
 build: clear
-	cp -rf ${POSTS_DIR} $(BLOG_REPO)/_posts || true
+	# cp -rf ${POSTS_DIR} $(BLOG_REPO)/_posts || true
 	cd  $(BLOG_REPO) && bundle exec jekyll build
 
 deploy:  build
