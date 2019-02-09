@@ -97,6 +97,7 @@ Awesome things	_posts/2015-12-01-ayearofmyarchinstallation.md	/^## Awesome thing
 Awesome things	dist/blog/ayearofmyarchinstallation.html	/^<h2 id="awesome-things">Awesome things<\/h2>$/;"	i	language:HTML
 BENCHMARKS	_posts/2015-05-08-testesdeapicomopyresttest.md	/^#### BENCHMARKS$/;"	t	language:Markdown
 BLOG_REPO	Makefile	/^BLOG_REPO=${HOME}\/projects\/blog$/;"	m	language:Make
+BLOG_REPO	dist/Makefile	/^BLOG_REPO=${HOME}\/projects\/blog$/;"	m	language:Make
 Benefits	_posts/2015-10-16-mynotesfortheqahangout.md	/^### Benefits$/;"	S	language:Markdown
 Benefits	dist/blog/mynotesfortheqahangout.html	/^<h3 id="benefits">Benefits<\/h3>$/;"	j	language:HTML
 Benefits:	_posts/2014-04-03-pragmatic-programmer-review.md	/^### Benefits:$/;"	S	language:Markdown
@@ -188,6 +189,7 @@ Creation vs Consuming	dist/blog/traitsofmypostureonsoftware.html	/^<h2 id="creat
 DEVELOPING EFFECT OF HTML5 THECHNOLOGY IN WEB GAME - Yu Zhang, 2012	_posts/2015-07-13-games-research.md	/^## DEVELOPING EFFECT OF HTML5 THECHNOLOGY IN WEB GAME - Yu Zhang, 2012$/;"	s	language:Markdown
 DEVELOPING EFFECT OF HTML5 THECHNOLOGY IN WEB GAME - Yu Zhang, 2012	dist/blog/games-research.html	/^<h2 id="developing-effect-of-html5-thechnology-in-web-game---yu-zhang-2012">DEVELOPING EFFECT OF/;"	i	language:HTML
 DIST_REPO	Makefile	/^DIST_REPO=${HOME}\/projects\/jeancarlomachado.github.io$/;"	m	language:Make
+DIST_REPO	dist/Makefile	/^DIST_REPO=${HOME}\/projects\/jeancarlomachado.github.io$/;"	m	language:Make
 Debugging	_posts/2014-04-03-pragmatic-programmer-review.md	/^## Debugging$/;"	s	language:Markdown
 Debugging	dist/blog/pragmatic-programmer-review.html	/^<h2 id="debugging">Debugging<\/h2>$/;"	i	language:HTML
 Debugging Doctrine Entities	_posts/2016-02-21-doctrine2contributiontouch.md	/^### Debugging Doctrine Entities$/;"	S	language:Markdown
